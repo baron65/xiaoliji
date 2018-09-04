@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		 http://www.springframework.org/schema/context   
+     	http://www.springframework.org/schema/context/spring-context-4.2.xsd
+     	http://www.springframework.org/schema/util 
+     	http://www.springframework.org/schema/util/spring-util.xsd
+     	http://www.springframework.org/schema/tx 
+  		http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+  		http://www.springframework.org/schema/aop 
+  		http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+  		http://www.springframework.org/schema/task
+  		http://www.springframework.org/schema/task/spring-task-4.2.xsd ">
+
+	<!-- <task:annotation-driven /> -->
+
+	<bean id="_generic_biz_exception_handler"
+		class="com.tts.xiaoliji.common.exception.MyGenericBizExceptionHandler" />
+
+	<bean id="defaultJnlNoGenerator" class="cn.openlo.gear.jnl.impl.DefaultJnlNoGenerator">
+		<property name="systemId" value="${gear.system.id}" />
+		<property name="entityId" value="${gear.seq}" />
+	</bean>
+
+	<bean id="dataSource" class="cn.openlo.datasource.druid.DruidDataSourceFactoryBean">
+		<property name="druidConfig">
+			<util:map>
+				<entry key="init" value="true" />
+				<entry key="url" value="${gear.jdbc.url}" />
+				<entry key="username" value="${gear.jdbc.username}" />
+				<entry key="password" value="${gear.jdbc.password}" />
+				<entry key="driverClassName" value="${gear.jdbc.driverClassName}" />
+				<!-- 配置初始化大小、最小、最大 -->
+				<entry key="initialSize" value="${gear.jdbc.initialSize}" />
+				<entry key="minIdle" value="${gear.jdbc.minIdle}" />
+				<entry key="maxActive" value="${gear.jdbc.maxActive}" />
+				<!-- 配置获取连接等待超时的时间 -->
+				<entry key="maxWait" value="${gear.jdbc.maxWait}" />
+				<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+				<entry key="timeBetweenEvictionRunsMillis" value="${gear.jdbc.timeBetweenEvictionRunsMillis}" />
+				<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+				<entry key="minEvictableIdleTimeMillis" value="${gear.jdbc.minEvictableIdleTimeMillis}" />
+				<entry key="validationQuery" value="SELECT 'x'" />
+				<entry key="validationQueryTimeout" value="${gear.jdbc.validationQueryTimeout}" />
+				<entry key="testWhileIdle" value="true" />
+				<entry key="testOnBorrow" value="false" />
+				<entry key="testOnReturn" value="false" />
+				<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+				<!-- 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false。 -->
+				<entry key="poolPreparedStatements" value="false" />
+				<entry key="maxPoolPreparedStatementPerConnectionSize"
+					value="${gear.jdbc.maxPoolPreparedStatementPerConnectionSize}" />
+				<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+				<entry key="filters" value="stat" />
+			</util:map>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="timeout" value="30" />
+	</bean>
+
+	<!-- 启用事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="panel:gear/xiaoliji-startup.mybatis.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:com/tts/xiaoliji/**/dao/mybatis/sqlmap/**/*.xml
+				</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.tts.xiaoliji.**.dao.mybatis.client" />
+		<property name="nameGenerator">
+			<bean
+				class="org.springframework.beans.factory.support.DefaultBeanNameGenerator"></bean>
+		</property>
+	</bean>
+
+	<!-- JnlNoHelper同一个Gear只需配置一个单例Bean -->
+	<bean id="localDataHelper" class="com.tts.xiaoliji.common.utils.LocalDataHelper">
+		<property name="defCompanyCode" value="DENG" />
+		<property name="defLanguage" value="ZH" />
+	</bean>
+	<bean id="localDataInboundServiceFilter"
+		class="com.tts.xiaoliji.common.filter.LocalDataInboundServiceFilter">
+		<property name="localDataHelper" ref="localDataHelper" />
+	</bean>
+	<bean id="localDataOutboundServiceFilter"
+		class="com.tts.xiaoliji.common.filter.LocalDataOutboundServiceFilter">
+		<property name="localDataHelper" ref="localDataHelper" />
+	</bean>
+
+	<!-- JnlNoHelper同一个Gear只需配置一个单例Bean -->
+	<bean id="jnlNoHelper" class="cn.openlo.gear.jnl.impl.ThreadLocalJnlNoHelper">
+		<property name="jnlNoGenerator" ref="defaultJnlNoGenerator">
+		</property>
+	</bean>
+	<bean id="jnlNoInboundServiceFilter" class="cn.openlo.gear.jnl.JnlNoInboundServiceFilter">
+		<property name="jnlNoHelper" ref="jnlNoHelper" />
+	</bean>
+	<bean id="jnlNoOutboundServiceFilter" class="cn.openlo.gear.jnl.JnlNoOutboundServiceFilter">
+		<property name="jnlNoHelper" ref="jnlNoHelper" />
+	</bean>
+	<bean id="ndcInboundServiceFilter" class="cn.openlo.gear.ndc.NDCInboundServiceFilter" />
+	<bean id="ndcOutboundServiceFilter" class="cn.openlo.gear.ndc.NDCOutboundServiceFilter" />
+	<bean id="loggerInboundServiceFilter" class="cn.openlo.gear.log.LoggingInboundServiceFilter" />
+	<bean id="loggerOutboundServiceFilter" class="cn.openlo.gear.log.LoggingOutboundServiceFilter" />
+	<bean id="loggerInboundServiceInterceptor" class="cn.openlo.gear.log.LoggingInboundServiceInterceptor" />
+	<bean id="loggerOutboundServiceInterceptor" class="cn.openlo.gear.log.LoggingOutboundServiceInterceptor" />
+	<bean id="intfSessionManager" class="com.tts.xiaoliji.intf.base.IntfSessionManager">
+		<lookup-method name="createIntfSession" bean="intfSession" />
+	</bean>
+	<bean id="cacheGroup" class="cn.openlo.gear.cache.support.PanelListenCacheGroup">
+		<property name="caches">
+			<list>
+				<ref bean="gearCache" />
+			</list>
+		</property>
+	</bean>
+	<bean id="redisOperationsWrapper" class="cn.openlo.nosql.redis.RedisOperationsWrapper">
+		<property name="redisOperations" ref="redisOperations" />
+	</bean>
+	<bean id="redisOperations" class="cn.openlo.nosql.redis.RedisOperationsFactoryBean">
+		<property name="redisConfigFile" value="gear/xiaoliji-intf.redis.properties" />
+	</bean>
+	<bean id="redisDao" class="cn.openlo.nosql.redis.RedisDaoImpl">
+		<constructor-arg name="redisOperationsWrapper" ref="redisOperationsWrapper" />
+		<constructor-arg name="namespace" value="INTF" />
+	</bean>
+	<!-- 
+	<bean id="mongoOperations" class="cn.openlo.nosql.mongo.MongoOperationsFactoryBean">
+		<property name="mongoConfigFile" value="gear/xiaoliji-intf.mongo.properties" />
+	</bean>
+	 -->
+	<bean id="_intf_gear_message_source" class="cn.openlo.common.LOMessageSource">
+		<!-- 定义parentMessageSource，当前MessageSource如果无法解析code，则使用parentMessageSource解析。 
+			因此父子定义相同的code时，优先使用子的定义。 -->
+		<property name="parentMessageSource" ref="_box_message_source" />
+		<property name="basenames">
+			<list>
+				<!-- classpath配置，gear默认 -->
+				<value>/cn/openlo/gear/_lo_gear_default</value>
+				<!-- panel配置，gear应用相关 -->
+				<value>panel:gear/xiaoliji-intf-cust</value>
+				<!-- 接入层通用 -->
+				<value>panel:gear/xiaoliji-intf-common</value>
+			</list>
+		</property>
+		<!-- 字符集 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- fallbackToSystemLocale为true表示在MessageSource实例在无法找到传入Locale对应message配置时，尝试使用系统Locale的配置。 
+			如果不需要此特性，建议关闭，将提高getMessage的性能。 详见calculateAllFilenames方法。 -->
+		<property name="fallbackToSystemLocale" value="false" />
+		<!-- 当没有定义code的message时，使用code作为默认消息 -->
+		<property name="useCodeAsDefaultMessage" value="false" />
+	</bean>
+    
+</beans>

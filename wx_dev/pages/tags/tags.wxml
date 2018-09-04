@@ -1,0 +1,36 @@
+<!--pages/tags/tags.wxml-->
+<wxs src="tags.wxs" module="tagWXS" />
+<form bindsubmit='tagSubmit'>
+  <scroll-view id="top">
+    <view wx:for="{{tags}}" wx:for-index="index" wx:for-item="tag" wx:key="key" >
+      <view wx:if="{{tag.checked}}">
+        <view data-id='{{index}}' class='tag_checked' bindtap='deleted'>
+          <view id='tagContent'>{{tag.tag}}</view>
+          <view id="tagHidden" hidden='{{tag.checked}}'>
+            <image id='tagHiddenI' src='../../image/delete.png'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view id='tag' class='tag_checked'>
+      <input name='tag' value='{{msg}}' placeholder='添加标签' bindinput='widthChange' bindblur='addTag' style='width: {{tagWidth}}px; height:99%' value='{{valueClear}}'></input>
+    </view>
+    <view class='line'> </view>
+  </scroll-view>
+  <view id='line'></view>
+  <scroll-view id='bottom'>
+    <view id="tags">
+      <text style='color: grey; margin-bottom:  23rpx;'>所有标签</text>
+      <view id='allTag'>
+        <view wx:for="{{tags}}" wx:for-index="index" wx:for-item="tag" wx:key="key">
+          <view id="{{index}}" bindtap='checked' class='tag' style='border: 1rpx solid {{tagWXS.changeColor(tag.checked)}};color:{{tagWXS.changeColor(tag.checked)}}'>{{tag.tag}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view style='color : red'>{{tagMsg}}</view>
+  <view style='color:#fff;height:0px'>
+    <text id='msg'>{{msg}}</text>
+  </view>
+  <button id='submit' type='primary' form-type='submit'>完成</button>
+</form>

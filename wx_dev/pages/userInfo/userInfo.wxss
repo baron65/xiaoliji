@@ -1,0 +1,38 @@
+/* pages/userInfo/userInfo.wxss */
+
+#ok {
+  margin: 35rpx 20rpx 20rpx 20rpx;
+}
+
+#cancel {
+  margin: 20rpx 20rpx 10rpx 20rpx;
+}
+
+.userInfo {
+  padding-left: 32rpx;
+  padding-top: 50rpx;
+}
+
+input {
+  color: black;
+  margin-top: 50rpx;
+}
+
+.line {
+  margin-top: 13rpx;
+  width: 656rpx;
+  border-bottom: 1rpx solid gray;
+  clear: both;
+}
+
+#tag {
+  margin-bottom: 50rpx;
+}
+
+.tag_checked {
+  margin: 5rpx 10rpx 5rpx 10rpx;
+  padding: 5rpx 26rpx 5rpx 26rpx;
+  border-radius: 18rpx;
+  border: 1rpx solid blue;
+  float: left;
+}

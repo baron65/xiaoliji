@@ -1,0 +1,25 @@
+<!--pages/record/record.wxml-->
+<wxs src="../../utils/utils.wxs" module="utils" />
+<form>
+  <scroll-view scroll-y='true'>
+    <view class='record'>
+      <view>往来对象</view>
+      <input name='userName'></input>
+      <view class='line'> </view>
+    </view>
+    <view class='record'>
+      <view>金额</view>
+      <input type='digit' name='userName' placeholder='0'></input>
+      <view class='line'> </view>
+    </view>
+    <picker mode='date' value='date' bindchange="bindDateChange">
+      <view class='record'>
+        <view>日期</view>
+        <input name='userName' value='{{date}}'></input>
+        <view class='line'> </view>
+      </view>
+    </picker>
+  </scroll-view>
+  <button id='ok' type='primary' form-type='submit'>完成</button>
+  <button id='cancel' bindtap='returnContacts'>取消</button>
+</form>

@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/my/my",
+    "pages/account/account",
+    "pages/tags/tags",
+    "pages/contacts/contacts",
+    "pages/feedback/feedback",
+    "pages/logs/logs",
+    "pages/index/index",
+    "pages/userInfo/userInfo",
+    "pages/record/record"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#c62626",
+    "navigationBarTitleText": "小礼记",
+    "navigationBarTextStyle": "#ffffff"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#1296db",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "image/ic_contact_hig.png",
+        "iconPath": "image/ic_contact.png",
+        "pagePath": "pages/contacts/contacts",
+        "text": "往来"
+      },
+      {
+        "selectedIconPath": "image/ic_m_hig.png",
+        "iconPath": "image/ic_m.png",
+        "pagePath": "pages/my/my",
+        "text": "我"
+      }
+    ]
+  }
+}

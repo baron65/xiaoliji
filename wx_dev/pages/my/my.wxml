@@ -1,0 +1,46 @@
+<!--pages/my/my.wxml-->
+<!--
+<view id="header" style='background-image: url(../../image/my/my_bg.png) ;background-repeat: no-repeat;background-size: cover;'>
+  <view style='height:21rpx;'></view>
+  <view style='height:170rpx;'>
+    <image id="user-portrait" src="{{userInfo.avatarUrl}}"></image>
+  </view>
+  <view style='height:25rpx;'></view>
+  <view>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <view style='height:75rpx;'></view>
+</view>
+-->
+<view id='header_2'>
+  <image id='background' src='../../image/my/my_bg.png'></image>
+  <image id="user_portrait" src="{{userInfo.avatarUrl}}"></image>
+  <view>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+</view>
+<view id='menu'>
+  <view class='menu-row'>
+    <view class='menu-top'>好友</view>
+    <view class='menu-content'>80</view>
+  </view>
+  <view class='menu-row'>
+    <view class='menu-top'>来往</view>
+    <view class='menu-content'>6</view>
+  </view>
+  <view class='menu-row' style='border:0rpx'>
+    <view class='menu-top'>收支</view>
+    <view class='menu-content'>+1000.00</view>
+  </view>
+</view>
+<view id='line'></view>
+<button open-type="contact" hover-class='none' plain='true' id='feedback'>
+  <view class="menu">
+    <image class='icon' src='../../image/my/ic_help.png' bindtap=''></image>意见与反馈
+  </view>
+</button>
+
+<view class="menu">
+  <image class='icon' src='../../image/my/ic_tj.png'></image>推荐给朋友</view>
+<view class="menu">
+  <image class='icon' src='../../image/my/ic_about.png'></image>关于小礼记</view>

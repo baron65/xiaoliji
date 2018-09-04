@@ -1,0 +1,13 @@
+<!--pages/feedback/feedback.wxml-->
+<view>
+  <view class='head'>意见和问题</view>
+  <view class='pack'>
+    <textarea class='content' placeholder='请填写10个字以上的问题描述以便我们提供更好的帮助'></textarea>
+  </view>
+  <view class='head'>联系电话</view>
+  <view id='packPhone'>
+    <input id='phone' type='number' placeholder='选填,便于我们与你联系'></input>
+  </view>
+  <button id='submit' type='primary'>提交</button>
+   
+</view>

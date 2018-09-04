@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="error" monitorInterval="30">
+	<properties>
+		<property name="GEAR_NAME">xiaoliji-startup</property>
+		<property name="LOG_PATH">${sys:box.home}/gear_logs/${GEAR_NAME}</property>
+		<property name="LOG_NAME">${GEAR_NAME}</property>
+		<property name="LogPattern">%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%X][%threadName][%threadId] [%c] - %msg%n%throwable</property>
+	</properties>
+	<appenders>
+		<RollingRandomAccessFile name="LoFileAppender" fileName="${LOG_PATH}/${LOG_NAME}.log" filePattern="${LOG_PATH}/$${date:yyyy-MM-dd}/${LOG_NAME}.%d{yyyy-MM-dd}.%i.log">
+			<PatternLayout pattern="${LogPattern}" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="200 MB" />
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy min="1" max="20" fileIndex="max" />
+		</RollingRandomAccessFile>
+		<console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LogPattern}" />
+		</console>
+	</appenders>
+	<loggers>
+		<!-- BEGIN 3rdparty Loggers -->
+		<asyncLogger name="cn.openlo" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="org.springframework" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="org.eclipse.jetty" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="org.apache.http" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="org.apache.curator.framework" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="org.apache.zookeeper" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="org.apache.ibatis" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="com.alibaba.dubbo" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="RocketmqClient" level="warn" additivity="true" includeLocation="false" />
+		<asyncLogger name="com.taobao.tddl" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="org.mongodb.driver" level="info" additivity="true" includeLocation="false" />
+		<asyncLogger name="org.activiti" level="info" additivity="true" includeLocation="false" />
+		<!-- END 3rdparty Loggers -->	
+		<!-- Async Root Logger -->
+		<asyncRoot level="debug" includeLocation="false">
+			<appender-ref ref="Console" />
+		</asyncRoot>
+	</loggers>
+</configuration>

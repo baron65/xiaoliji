@@ -1,0 +1,38 @@
+<!--pages/userInfo/userInfo.wxml-->
+<form>
+  <scroll-view scroll-y='true'>
+    <view class='userInfo'>
+      <view>称呼</view>
+      <input name="userName" placeholder='添加对Ta的称呼'></input>
+      <view class='line'> </view>
+    </view>
+
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view class='userInfo'>
+        <view>性别</view>
+        <input name="gender" value='{{array[index]}}' placeholder='添加性别' disabled='true'></input>
+        <view class='line'></view>
+      </view>
+    </picker>
+    <view class='userInfo'>
+      <view id='tag'>标签</view>
+      <view id='tags'>
+        <view wx:if="{{false}}">
+          <view wx:for="{{tags}}" wx:for-item="tag" wx:key="key">
+            <view class='tag_checked'>{{tag.tag}} </view>
+          </view>
+        </view>
+        <view wx:else>
+          <input name="tag" bindtap='tag' placeholder-class='tag' placeholder-style='color lightgray' placeholder='添加标签对联系人分类'></input>
+        </view>
+      </view>
+      <view class='line'></view>
+    </view>
+    <view class='userInfo'>备注
+      <input name="remark" placeholder-style='color lightgray' placeholder='添加更多描述信息'></input>
+      <view class='line'></view>
+    </view>
+  </scroll-view>
+  <button id='ok' type='primary' form-type='submit'>完成</button>
+  <button id='cancel' bindtap='returnContacts'>取消</button>
+</form>

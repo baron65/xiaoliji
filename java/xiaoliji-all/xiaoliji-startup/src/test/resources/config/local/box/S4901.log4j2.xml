@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status=trace 可以查看log4j的装配过程，相关状态有："trace", "debug", "info", "warn", "error" and "fatal"；monitorInterval检查配置文件是否发生变化，若变化自动刷新配置，单位秒，0关闭此选项。 -->
+<configuration status="error" monitorInterval="30">
+    <properties>
+        <property name="LOG_HOME">boxlogs</property>
+        <property name="DevLogFile_NAME">dev</property>
+        <property name="DevLog_Path">${sys:box.home}/${LOG_HOME}</property>
+        <property name="PerformanceLogFile_NAME">performance</property>
+        <property name="PerformanceLog_Path">${sys:box.home}/${LOG_HOME}</property>
+        <property name="LifecycleLogFile_NAME">lifecycle</property>
+        <property name="LifecycleLog_Path">${sys:box.home}/${LOG_HOME}</property>
+        <property name="LogPattern">%date{yyyy-MM-dd HH:mm:ss.SSS} %level[%thread][%c][%X] - %msg%n%throwable</property>
+    </properties>
+    <appenders>
+        <!-- 定义控制台输出 。follow：当System.setOut或者System.setErr被调用后改变了标准输出后，ConsoleAppender也跟着改变；target输出目标为标准输出还是错误输出： "SYSTEM_OUT"
+            or "SYSTEM_ERR" -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LogPattern}" />
+        </Console>
+        <!-- 程序员调试日志。 -->
+        <RollingRandomAccessFile name="DevLogAppender" fileName="${DevLog_Path}/${DevLogFile_NAME}.log"
+            filePattern="${DevLog_Path}/$${date:yyyy-MM-dd}/${DevLogFile_NAME}.%d{yyyy-MM-dd}.%i.log">
+            <PatternLayout pattern="${LogPattern}" />
+            <Policies>
+                <!-- 如果日志文件时间老于jvm启动时间，则触发日志滚动 -->
+                <!-- <OnStartupTriggeringPolicy /> -->
+                <!-- 当日志文件达到规定大小，则触发日志滚动。 -->
+                <SizeBasedTriggeringPolicy size="100 MB" />
+                <!-- interval：以文件的日期格式的最小单位为间隔；modulate：指明间隔是否修正为规范间隔，以0为基础开始，做间隔修正。 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <!-- 滚动文件的数量。min：索引最小值；max：索引最大值。fileIndex：max，min。若为max，意思是高索引的是较新的日志文件 -->
+            <DefaultRolloverStrategy min="1" max="20" fileIndex="max" />
+        </RollingRandomAccessFile>
+        <!-- 性能分析日志 -->
+        <RollingRandomAccessFile name="PerformanceLogAppender" fileName="${PerformanceLog_Path}/${PerformanceLogFile_NAME}.log"
+            filePattern="${PerformanceLog_Path}/$${date:yyyy-MM-dd}/${PerformanceLogFile_NAME}.%d{yyyy-MM-dd}.%i.log">
+            <PatternLayout pattern="${LogPattern}" />
+            <Policies>
+                <!-- 如果日志文件时间老于jvm启动时间，则触发日志滚动 -->
+                <!-- <OnStartupTriggeringPolicy /> -->
+                <!-- 当日志文件达到规定大小，则触发日志滚动。 -->
+                <SizeBasedTriggeringPolicy size="100 MB" />
+                <!-- interval：以文件的日期格式的最小单位为间隔；modulate：指明间隔是否修正为规范间隔，以0为基础开始，做间隔修正。 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <!-- 滚动文件的数量。min:索引最小值；max：索引最大值。fileIndex：max，min。若为max，意思是高索引的是较新的日志文件 -->
+            <DefaultRolloverStrategy min="1" max="20" fileIndex="max" />
+        </RollingRandomAccessFile>
+        <!-- 启动停止日志 -->
+        <RollingRandomAccessFile name="LifecycleLogAppender" fileName="${LifecycleLog_Path}/${LifecycleLogFile_NAME}.log"
+            filePattern="${LifecycleLog_Path}/$${date:yyyy-MM-dd}/${LifecycleLogFile_NAME}.%d{yyyy-MM-dd}.%i.log">
+            <PatternLayout pattern="${LogPattern}" />
+            <Policies>
+                <!-- 如果日志文件时间老于jvm启动时间，则触发日志滚动 -->
+                <!-- <OnStartupTriggeringPolicy /> -->
+                <!-- 当日志文件达到规定大小，则触发日志滚动。 -->
+                <SizeBasedTriggeringPolicy size="100 MB" />
+                <!-- interval：以文件的日期格式的最小单位为间隔；modulate：指明间隔是否修正为规范间隔，以0为基础开始，做间隔修正。 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <!-- 滚动文件的数量。min：索引最小值；max：索引最大值。fileIndex：max，min。若为max，意思是高索引的是较新的日志文件 -->
+            <DefaultRolloverStrategy min="1" max="20" fileIndex="max" />
+        </RollingRandomAccessFile>
+    </appenders>
+    <!-- asyncLogger是异步，logger是同步。asyncRoot与root只能选择一个 -->
+    <!-- name是logger的名字，若用"."做分隔，代表其父logger；logger的level级别：TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF，若没指定则默认为error；additivity子logger集成父logger的appender，默认值为true -->
+    <loggers>
+        <!-- 3rdparty Loggers -->
+        <asyncLogger name="org.springframework" level="error" additivity="true" includeLocation="false" />
+        <asyncLogger name="RocketmqClient" level="info" additivity="true" includeLocation="false" />
+        <!-- Performance logger -->
+        <asyncLogger name="lo.performance.logger" level="info" additivity="false" includeLocation="false">
+            <appender-ref ref="PerformanceLogAppender" />
+        </asyncLogger>
+        <!-- Lifecycle logger -->
+        <asyncLogger name="lo.lifecycle.logger" level="info" additivity="true" includeLocation="false">
+            <appender-ref ref="LifecycleLogAppender" />
+        </asyncLogger>
+        <!-- Async Root Logger -->
+        <asyncRoot level="info" includeLocation="false">
+            <appender-ref ref="DevLogAppender" />
+        </asyncRoot>
+    </loggers>
+</configuration>

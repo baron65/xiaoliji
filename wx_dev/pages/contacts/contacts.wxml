@@ -1,0 +1,26 @@
+<!--pages/contacts/contacts.wxml-->
+<wxs src="../../utils/utils.wxs" module="utils" />
+<view id="header">
+  <navigator id='addPack' hover-class='navigator-hover' url='../userInfo/userInfo'>
+    <image id='add' src='../../image/add.png' bindtap='addContacts'></image>
+  </navigator>
+  <image id='search' src='../../image/search.png'></image>
+</view>
+<scroll-view id="friends" scroll-y="true" bindscrolltolower="searchScrollLower">
+  <view wx:for="{{friends}}" wx:for-item="friend" wx:key="key">
+    <view class='friend' bindtap='account'>
+      <view class='left'>
+        <image wx:if="{{friend.gender=='1'}}" class='pic' src='../../image/contacts/ic_contact_men.png'> </image>
+        <image wx:else src='../../image/contacts/ic_contact_women.png' class='pic'></image>
+      </view>
+      <view class='left'>
+      </view>
+      <view class='right'>
+        <text class='name'>{{friend.name}}</text>
+        <text class='time'>{{utils.formatDateShort(friend.date)}}</text>
+        <text class='remark'>{{friend.remark}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='loading'>{{friends.length}}位联系人</view>
+</scroll-view>

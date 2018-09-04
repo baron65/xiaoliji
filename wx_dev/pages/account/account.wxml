@@ -1,0 +1,62 @@
+<view>
+  <wxs src="../../utils/utils.wxs" module="tools" />
+
+  <!--banner 此处有个小程序bug,直接使用image组件不包裹的话图片下方会有一条白边 -->
+  <view class='banner'>
+    <image catchtouchmove='false' src='../../image/account/banner1.png'></image>
+    <view class='add-acc' bindtap="clickMe">
+      <image src='../../image/account/btn_add.png'></image>
+    </view>
+  </view>
+
+  <view id="account">
+    <!-- accout title -->
+    <view class='acc-total' catchtouchmove='false'>
+      <view class='left'>
+        <view class='text'>当月收入 </view>
+        <view class='in-acc'>+{{tools.formatMoney(expenditures.totalAmountIn)}}</view>
+      </view>
+      <view class='right'>
+        <view class='text'>当月支出 </view>
+        <view class='out-acc'>- {{tools.formatMoney(expenditures.totalAmountOut)}} </view>
+      </view>
+    </view>
+
+    <scroll-view scroll-y="true" id="acc-scroll-box" style='height: {{accHeight}}px'>
+      <block wx:for="{{expenditures.list}}" wx:key="index" wx:for-item="expenditure">
+        <view class='expend-item'>
+          <view class='{{expenditure.type}}'>
+            <view class="expend-text">
+              <view class="amount" wx:if="{{expenditure.type == 'out'}}">-{{ tools.formatMoney(expenditure.amount) }}</view>
+              <view class="amount" wx:if="{{expenditure.type == 'in'}}">+{{ tools.formatMoney(expenditure.amount) }}</view>
+              <view class='remark'>{{ expenditure.remark }}</view>
+              <view class='date'>{{tools.formatDateShort(expenditure.date) }}</view>
+            </view>
+          </view>
+          <view class='line'></view>
+          <view class='img'>
+            <image wx:if="{{expenditure.type == 'out'}}" src='../../image/account/ic_out.png'></image>
+            <image wx:if="{{expenditure.type == 'in'}}" src='../../image/account/ic_in.png'></image>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+
+    <!--自定义遮罩层  start-->
+    <view class="modal-mask" bindtap="hideModal" wx:if="{{showModal}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal}}">
+      <!-- <view class="modal-title">自定义标题</view> -->
+      <view class="modal-content">
+        <navigator url='../userInfo/userInfo'>
+          <view class='money'>修改联系人</view>
+        </navigator>
+        <navigator url='../record/record'>
+          <view class='friend' bindtap='contacts'>收礼金</view>
+        </navigator>
+        <view class='tab'>送礼金</view>
+      </view>
+    </view>
+    <!--自定义遮罩层 end -->
+
+  </view>
+</view>

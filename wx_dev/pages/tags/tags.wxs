@@ -1,0 +1,9 @@
+var changeColor = function (checked) {
+  if (checked)
+    return '#1aad19'
+  else
+    return 'grey';
+};
+module.exports = {
+  changeColor: changeColor,
+};

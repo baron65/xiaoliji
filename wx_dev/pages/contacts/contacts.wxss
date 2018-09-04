@@ -1,0 +1,103 @@
+/* pages/contacts/contacts.wxss */
+
+#header {
+  font-size: 20pt;
+  width: 750rpx;
+  height: 100rpx;
+  background-color: coral;
+}
+
+#search {
+  margin-right: 95rpx;
+  margin-top: 30rpx;
+  float: right;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.icon {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.btn-area {
+  border-top: 1rpx solid lightgray;
+  padding-top: 20rpx;
+  height: 111rpx;
+  display: flex;
+  align-items: center;
+  font-size: 8pt;
+  color: gray;
+}
+
+.navigator {
+  width: 250rpx;
+  text-align: center;
+}
+
+#add {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+#addPack {
+  float: right;
+  text-align: center;
+  height: 100rpx;
+  width: 120rpx;
+}
+
+.friend {
+  margin-top: 15rpx;
+  height: 133rpx;
+  border-bottom: 1rpx solid lightgray;
+}
+
+.left {
+  width: 80rpx;
+  float: left;
+}
+
+.middle {
+  width: 40rpx;
+}
+
+.right {
+  margin-top: 16rpx;
+  float: right;
+  width: 600rpx;
+}
+
+.pic {
+  margin: 16rpx 20rpx 16rpx 25rpx;
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.name {
+  float: left;
+  font-size: 14pt;
+}
+
+.time {
+  margin-right: 20rpx;
+  float: right;
+  font-size: 9pt;
+  color: gray;
+}
+
+.remark {
+  margin-top: 10rpx;
+  float: left;
+  clear: both;
+  font-size: 11pt;
+  color: grey;
+}
+
+.loading {
+  text-align: center;
+  color: grey;
+  font-size: 12pt;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

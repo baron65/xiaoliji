@@ -1,0 +1,38 @@
+/* pages/feedback/feedback.wxss */
+
+page {
+  background-color: #efeff4;
+}
+
+.head {
+  height: 78rpx;
+  display: flex;
+  align-items: center;
+  padding-left: 35rpx;
+}
+
+.content {
+  margin: 25rpx 40rpx 0rpx 32rpx;
+  background-color: #fff;
+}
+
+.pack {
+  border: 1rpx solid;
+  border-color: #fff;
+  background-color: #fff;
+}
+
+#phone {
+  margin-left: 32rpx;
+  height: 90rpx;
+  width: 750rpx;
+  vertical-align: middle;
+}
+
+#packPhone {
+  background-color: #fff;
+}
+
+#submit {
+  margin: 40rpx 30rpx 0rpx 30rpx;
+}

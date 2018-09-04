@@ -1,0 +1,103 @@
+/* pages/tags/tags.wxss */
+
+#header {
+  height: 100rpx;
+  background-color: black;
+  color: white;
+  font-size: 35 rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding-left: 30rpx;
+}
+
+#headline {
+  margin-left: 30rpx;
+}
+
+#return {
+  height: 50rpx;
+  width: 50rpx;
+}
+
+#ok {
+  height: 60rpx;
+  width: 126rpx;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  margin-right: 20rpx;
+}
+
+#top {
+  width: 700rpx;
+  margin: 12rpx 24rpx 12rpx 24rpx;
+  clear: both;
+}
+
+#line {
+  margin: 16rpx 41rpx 0rpx 41rpx;
+  clear: both;
+  border-bottom: 0.5rpx solid gray;
+  -webkit-transform: scale(1, 0.5);
+  transform: scale(1, 0.5);
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+
+#bottom {
+  padding: 12rpx 24rpx 12rpx 24rpx;
+}
+
+#tags {
+  padding: 12rpx 24rpx 0rpx 0rpx;
+  clear: both;
+}
+
+#tag {
+  border: 1rpx dashed gray;
+  color: gray;
+}
+
+#add {
+  clear: both;
+}
+
+.tag {
+  margin: 8rpx 10rpx 8rpx 10rpx;
+  padding: 5rpx 26rpx 5rpx 26rpx;
+  border-radius: 36rpx;
+  border: 1rpx solid gray;
+  float: left;
+}
+
+.tag_checked {
+  text-align: center;
+  margin: 8rpx 10rpx 8rpx 10rpx;
+  padding: 5rpx 26rpx 5rpx 26rpx;
+  border-radius: 36rpx;
+  border: 1rpx solid #1aad19;
+  color: #1aad19;
+  float: left;
+}
+
+#allTag {
+  margin: 23rpx 5rpx 0rpx 5rpx;
+}
+
+#submit {
+  margin: 30rpx 20rpx 0rpx 20rpx;
+}
+
+#tagContent {
+  float: left;
+}
+
+#tagHidden {
+  margin-left: 5rpx;
+  float: left;
+}
+#tagHiddenI{
+  height: 30rpx;
+  width: 30rpx;
+}

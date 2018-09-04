@@ -1,0 +1,57 @@
+/* pages/record/record.wxss */
+
+#header {
+  height: 100rpx;
+  background-color: black;
+  color: white;
+  font-size: 35 rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding-left: 30rpx;
+}
+
+#headline {
+  margin-left: 30rpx;
+}
+
+#return {
+  height: 50rpx;
+  width: 50rpx;
+}
+
+/*
+#ok {
+  height: 60rpx;
+  width: 126rpx;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  margin-right: 20rpx;
+}
+*/
+
+#ok {
+  margin: 35rpx 20rpx 20rpx 20rpx;
+}
+
+#cancel {
+  margin: 20rpx 20rpx 10rpx 20rpx;
+}
+
+.record {
+  padding-left: 32rpx;
+  padding-top: 50rpx;
+}
+
+input {
+  color: black;
+  margin-top: 50rpx;
+}
+
+.line {
+  margin-top: 13rpx;
+  width: 656rpx;
+  border-bottom: 1rpx solid gray;
+  clear: both;
+}

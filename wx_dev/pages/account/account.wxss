@@ -1,0 +1,236 @@
+.banner {
+  height: 229.16666666666666666667rpx;
+  width: 100%;
+  position: relative;
+}
+
+.banner image {
+  width: 100%;
+  height: 100%;
+}
+
+.banner .add-acc {
+  position: absolute;
+  width: 183.333333333333rpx;
+  height: 183.333333333333rpx;
+  border-radius: 50%;
+  z-index: 100;
+  color: #d09b29;
+  top: 150rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#account {
+  position: relative;
+}
+
+#account .acc-total {
+  overflow: hidden;
+}
+
+#account .acc-total .add-acc image {
+  width: 100%;
+  height: 100%;
+}
+
+#account .acc-total .text {
+  font-size: 27.777777777777778rpx;
+  color: #474747;
+}
+
+#account .acc-total .in-acc {
+  font-size: 36.111111111rpx;
+  font-weight: bold;
+  margin-top: 18.055555555556rpx;
+  color: #c62626;
+}
+
+#account .acc-total .out-acc {
+  font-size: 36.111111111rpx;
+  font-weight: bold;
+  margin-top: 18.055555555556rpx;
+  color: #1d9601;
+}
+
+#account .acc-total .left {
+  padding-left: 29.166666666667rpx;
+  margin-top: 29.1666666666667rpx;
+  float: left;
+}
+
+#account .acc-total .right {
+  text-align: right;
+  padding-right: 29.166666666667rpx;
+  margin-top: 29.1666666666667rpx;
+  float: right;
+}
+
+#account .expend-item {
+  height: 148.61111111111rpx;
+  position: relative;
+}
+
+#account .expend-item .line {
+  position: absolute;
+  border-right: 2px solid #e8e8e8;
+  height: 100%;
+  width: 2px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#account .expend-item .img {
+  position: absolute;
+  width: 52.388888888888889rpx;
+  height: 52.388888888888889rpx;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#account .expend-item .img image {
+  width: 100%;
+  height: 100%;
+}
+
+#account .expend-item>view {
+  box-sizing: border-box;
+  width: 50%;
+}
+
+#account .expend-item:first-of-type{
+  padding-top:41.666666666667rpx ;  
+}
+
+#account .expend-item:first-of-type .img {
+  top: 41.666666666667rpx ; 
+}
+
+#account .expend-item .out {
+  float: right;
+  padding-left: 54.8611111111111rpx;
+  padding-right: 29.166666666667rpx;
+  text-align: left;
+}
+
+#account .expend-item .in {
+  float: left;
+  padding-right: 54.8611111111111rpx;
+  padding-left: 29.166666666667rpx;
+  text-align: right;
+}
+
+#account .expend-item .out .amount {
+  font-size: 33.33333333rpx;
+  font-weight: bold;
+  color: #1d9601;
+}
+
+#account .expend-item .in .amount {
+  font-size: 33.33333333rpx;
+  font-weight: bold;
+  color: #c62626;
+}
+
+#account .expend-item .remark {
+  font-size: 27.77777777778rpx;
+  color: #474747;
+  font-weight: bold;
+}
+
+#account .expend-item .date {
+  font-size: 20.83333333333rpx;
+  color: #adadad;
+} 
+
+/*遮罩层样式代码  */
+
+.show-btn {
+  margin-top: 100rpx;
+  color: #2c2;
+}
+
+.modal-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 9000;
+  color: #fff;
+}
+
+.modal-dialog {
+  width: 100%;
+  min-height: 300rpx;
+  overflow: hidden;
+  position: fixed;
+  /* top: 50%; */
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background: #f7f2f2;
+}
+
+/* .modal-title {
+  padding-top: 50rpx;
+  font-size: 36rpx;
+  color: #030303;
+  text-align: center;
+} */
+
+.modal-content {
+  padding: 50rpx 32rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-content view {
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+  line-height: 150rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 40rpx;
+  background-color: #e96663;
+  border-radius: 50%;
+}
+
+input-holder {
+  color: #666;
+  font-size: 28rpx;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+/* .modal-footer {
+  display: flex;
+  flex-direction: row;
+  height: 86rpx;
+  border-top: 1px solid #dedede;
+  font-size: 34rpx;
+  line-height: 86rpx;
+}
+
+.btn-cancel {
+  width: 50%;
+  color: #666;
+  text-align: center;
+  border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+  width: 50%;
+  color: #ec5300;
+  text-align: center;
+} */

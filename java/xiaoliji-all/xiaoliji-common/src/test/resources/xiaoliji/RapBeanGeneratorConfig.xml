@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<generatorConfiguration>
+	<!-- 文件编码 -->
+	<property name="javaFile.encoding" value="UTF-8" />
+
+	<!-- jdbc连接定义 -->
+	<property name="jdbc.driverClass" value="com.mysql.jdbc.Driver" />
+	<property name="jdbc.connectionURL" value="jdbc:mysql://111.230.223.167:3306/rap_db" />
+	<property name="jdbc.userId" value="rap" />
+	<property name="jdbc.password" value="654321Rap!" />
+
+	<!-- 生成java文件的存放路径 -->
+	<property name="filePath.targetPackage" value="com.tts.xiaoliji.common.dto.rap" />
+	<property name="filePath.targetProject" value="./src/main/java/" />
+
+	<!-- bean的非常规特点 -->
+	<property name="flag.javavalidator" value="true" />
+	<property name="flag.setterAndGetter" value="true" />
+	<property name="flag.fieldIsPublic" value="false" />
+
+	<!-- request类和response类的基类 -->
+	<property name="superClass.request"
+		value="com.tts.xiaoliji.common.dto.rap.RequestBaseDTO" />
+	<property name="superClass.response"
+		value="com.tts.xiaoliji.common.dto.rap.ResponseBaseDTO" />
+
+	<!-- 接口url范围，支持%模糊匹配，匹配方式与数据库%符号一致 -->
+	<requestUrls>
+		<value name="%" /> 
+		<!-- 
+		<value name="wss-prd-order.queryProductCustInfo" /> 
+		<value name="wss-prd-core.modifyProductRateOfReturn" />
+		<value name="wss-prd-core.queryProductRateOfReturn" />
+		<value name="wss-prd%" /> 
+		<value name="wss-operation.queryStaff" /> 
+		<value name="wss-order.orderQuery" /> 
+		<value name="wss-cust.getCustomerInfoVO" /> -->
+	</requestUrls>
+
+	<!-- 不在接口response bean中生成的参数，一般是已在父类中存在的参数 -->
+	<excludeResponseParas>
+		<value name="responseCode" />
+		<value name="responseMsg" />
+	</excludeResponseParas>
+
+	<!-- 不在接口request bean中生成的参数，一般是已在父类中存在的参数 -->
+	<excludeRequestParas>
+		<value name="channel" />
+		<value name="channelDate" />
+		<value name="channelJnlNo" />
+		<value name="sourceSystemId" />
+	</excludeRequestParas>
+
+	<!-- object类型支持的原生java类型 -->
+	<primitiveDataTypes>
+		<value name="byte" />
+		<value name="byte[]" />
+		<value name="char" />
+		<value name="char[]" />
+	</primitiveDataTypes>
+
+	<!-- 字段校验annotation -->
+	<javavalidators>
+		<javavalidator annotationName="VCustom"
+			annotationClass="cn.openlo.service.validation.VCustom" />
+		<javavalidator annotationName="VDate"
+			annotationClass="cn.openlo.service.validation.VDate" />
+		<javavalidator annotationName="VEnum"
+			annotationClass="cn.openlo.service.validation.VEnum" />
+		<javavalidator annotationName="VLength"
+			annotationClass="cn.openlo.service.validation.VLength" />
+		<javavalidator annotationName="VNotEmpty"
+			annotationClass="cn.openlo.service.validation.VNotEmpty" />
+		<javavalidator annotationName="VNumber"
+			annotationClass="cn.openlo.service.validation.VNumber" />
+		<javavalidator annotationName="VRegex"
+			annotationClass="cn.openlo.service.validation.VRegex" />
+	</javavalidators>
+
+</generatorConfiguration>
